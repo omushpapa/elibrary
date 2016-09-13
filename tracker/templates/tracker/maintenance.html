@@ -1,0 +1,74 @@
+{% extends 'tracker/tracker_base.html' %}
+{% load static %}
+
+{% block errors %}
+
+{% if error_messages %}
+    <div class='warning'>{{ error_messages }}</div>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Maintenance
+        </h2>
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'tracker:issues' %}">
+                Issues
+            </a>
+        </div>
+    </div>
+</div>
+
+{% for maintenance in maintenances %}
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {{ maintenance.request_name | title }}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                {{ maintenance.description | title }}
+            </span>
+        </div>
+        <div class="mdl-card__supporting-text no-left-padding">
+            <p>
+            	Request time: {{ maintenance.time_requested }} <br />
+				{% if maintenance.approval_status %} Status: {{ maintenance.approval_status }} <br /> {% endif %}
+				{% if maintenance.approval_status == 'resolved' %} Time resolved: {{ maintenance.time_resolved }} <br /> {% endif %}
+				{% if maintenance.comments %} Admin says: {{ maintenance.comments | title }} <br /> {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% empty %}
+
+You have not made any maintenance request.
+
+{% endfor %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Make a request
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <form action="" method="post" class="">
+                {% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    Issue Title: {{ maintenance_form.request_name }} <br /><br />
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    Short Description: {{ maintenance_form.description }} <br /><br />
+                </div>
+                <input type='submit' value='Submit' />
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

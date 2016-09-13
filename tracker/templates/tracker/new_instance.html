@@ -1,0 +1,23 @@
+{% extends 'todo/todo_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {% if 'upload' in request.path %} Upload {% endif %}
+            {% if 'issue' in request.path %} Raise an issue {% endif %}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <form action="" method="post" class="">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type='submit' value='Submit' />
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+			</form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

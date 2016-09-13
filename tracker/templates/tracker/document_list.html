@@ -1,0 +1,61 @@
+{% extends 'tracker/tracker_base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% url 'tracker:my_documents' as my_documents %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            <a href='{% url 'tracker:documents' %}'>Documents</a>{% if request.path == my_documents %} &nbsp- My Uploads {% endif %}
+        </h2>
+        <div class="mdl-card__actions mdl-card--border">
+        	{% if request.user.is_authenticated %}
+		    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'tracker:my_documents' %}">
+		    	My uploads
+		    </a><br />
+		    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'tracker:upload_document' %}'>
+		    	Upload document
+		    </a><br />
+		    {% endif %}
+		    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'tracker:search_document' %}'>
+		    	Search document
+		    </a>
+		</div>
+    </div>
+</div>
+
+{% for document in object_list %}
+
+<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {{ document.title | title }}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                Linked 	{% if request.user.is_authenticated %}
+                		<a href='{{ document.url }}' target='_blank'>here</a>
+                		{% else %}
+                		<a href='{% url 'repo:login' %}'>login required</a>
+                		{% endif %}
+                <br />
+				Department - &nbsp
+				<a href='{% url 'tracker:department_documents' document.document_category.category_name %}'>
+					{{ document.document_category.category_name }}</a><br />
+            </span>
+        </div>
+    </div>
+</div>
+
+{% empty %}
+	
+	
+	{% if request.path == my_documents %} You have no uploads.
+	{% else %}
+	No documents available.<br />
+	{% endif %}
+{% endfor %}
+
+{% endblock %}

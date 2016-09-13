@@ -1,0 +1,13 @@
+<h1>Library books</h1>
+
+<ul>
+{% for book in books %}
+	<li><p>Name: <b>{{ book.book_title }}</b>
+
+	<br />Category: {{ book.category }}
+	<br />Status: {{ book.availability_status }}
+	</p></li>
+{% empty%}
+<b>No books found</b>
+{% endfor %}
+</ul>

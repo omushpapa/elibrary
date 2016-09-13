@@ -1,0 +1,17 @@
+{% extends 'tracker/tracker_base.html' %}
+
+{% block content %}
+
+<form method="get" action=".">
+	<label for="id_q">Search:</label>
+       <input type="text" name="q" id="id_q"/>
+       <input type="submit" value="Search"/>
+       <button><a href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red"><i class="material-icons">Cancel</i></a></button>
+</form>
+
+<hr />
+
+Coded: {{ query_dict.query_string }}<br />
+Decoded: {{ query_dict.decoded }}
+
+{% endblock %}

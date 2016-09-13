@@ -1,0 +1,43 @@
+{% extends 'reg/base.html' %}
+{% load extra_tags %}
+{% load static %}
+
+{% block content %}
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet" style="background-color: white;">
+        <img class="article-image" src="{% static 'images/profile.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Name: {{ user_data.first_name | title }} {{ user_data.last_name | title }}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                {% if request.user.is_authenticated %}
+					{% if user_data.username %}Username: {{ user_data.username | title }}<br />{% endif %}
+					{% if user_data.email %}Email: {{ user_data.email }}<br />{% endif %}
+					{% if user_profile.phone %}Phone: {{ user_profile.phone }}<br />{% endif %}
+				{% endif %}
+				{% if user_profile.city %}City: {{ user_profile.city | title }}<br />{% endif %}
+				{% if user_profile.country %}Country: {{ user_profile.country | title }}<br />{% endif %}
+				{% if user_profile.organisation %}Organisation: {{ user_profile.organisation | title }}<br />{% endif %}
+				{% if user_profile.website %}Website: <a href='{{ user_profile.website }}' target='_blank'>{{ user_profile.website }}</a><br />{% endif %}
+            </span>
+        </div>
+        <div class="mdl-card__supporting-text no-left-padding">
+            <p>{% if user_profile.bio %}Bio:<br />&nbsp {{ user_profile.bio }}{% endif %}</p>
+            <span>
+            	{% if request.user.is_authenticated %}
+					{% if request.user.id == user_data.id %}
+					<ul>
+					<li><a href='{% url 'reg:edit_user' request.user.id|hash_id %}'>Edit Profile</a></li>
+					<li><a href='{% url 'reg:password_change' %}'>Change password</a></li>
+					</ul>
+					{% endif %}
+				{% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

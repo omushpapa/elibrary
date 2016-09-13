@@ -1,0 +1,25 @@
+{% extends 'reg/base.html' %}
+
+{% block staffmember %}
+{% if request.user.is_staff %}
+<ul>
+    <li>
+        <a href="{% url 'tracker:maintenance' %}">Maintenance</a>
+    </li>
+</ul>
+{% endif %}
+{% endblock%}
+
+
+{% block repo_links %}
+{% if user.is_authenticated %}
+        <ul>
+            <li>
+                <a href="{% url 'repo:library' %}">Library</a>
+            </li>
+            <li>
+                <a href="{% url 'tracker:documents' %}">Documents</a>
+            </li>
+        </ul>
+{% endif %}
+{% endblock %}

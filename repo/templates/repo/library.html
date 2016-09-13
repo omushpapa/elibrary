@@ -1,0 +1,60 @@
+{% extends 'repo/repo_base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Library books</h1>
+
+<div class="mdl-card__supporting-text no-left-padding">
+    <hr />
+    Search
+    <form action="{% url 'tracker:search_document' %}" method="get" class="">
+        {% csrf_token %}
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input type="text" name="q" id="id_q"/>
+            <input type="hidden" name="type" value="books">
+        </div>
+        <input type="submit" value="Search"/>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
+    </form>
+    <hr />
+</div>
+
+{% for single in single_books %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {{ single.book_id.book_title | title }}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                <br />Category: {{ single.book_id.category | title }}
+				<br />Status: 	{% if not single.is_available_returned %} 
+									Unavailable
+								{% else %}
+									Available
+								{% endif %} 
+            </span>
+        </div>
+        <div class="mdl-card__supporting-text no-left-padding">
+            <p>{% if user_profile.bio %}Bio:<br />&nbsp {{ user_profile.bio }}{% endif %}</p>
+            <span>
+            	{% if single.is_available_returned %}
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'repo:borrow' single.serial_number %}">Borrow</a>
+				{% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% empty%}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+	<div class="mdl-card__supporting-text padding-top">
+        <span>
+			No books found
+        </span>
+    </div>
+{% endfor %}
+
+{% endblock %}

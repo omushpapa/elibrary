@@ -1,0 +1,87 @@
+{% load extra_tags %}
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>E-Library</title>
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/png" />
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'material.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'messages.css' %}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
+            <div class="mdl-layout__header-row portfolio-logo-row">
+                <span class="mdl-layout__title">
+                    <div class="portfolio-logo"></div>
+                    <span class="mdl-layout__title">E-Library</span>
+                </span>
+            </div>
+            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    {%if user.is_staff %}
+                    <a class="mdl-navigation__link" href="{% url 'admin:index' %}">Admin</a>
+                    {% endif %}
+                    <a class="mdl-navigation__link" href="{% url 'reg:home' %}">Home</a>
+                    <!-- Left aligned menu below button -->
+                    {% if request.user.is_authenticated  %}
+                    <a class="mdl-navigation__link" href="{% url 'repo:library' %}">Library</a>
+                    <a class="mdl-navigation__link" href="{% url 'tracker:documents' %}">Documents</a>
+                    <a class="mdl-navigation__link" href="{% url 'reg:profile' request.user.id|hash_id %}">Profile</a>
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                    <a class="mdl-navigation__link" href="{% url 'reg:register' %}">Register</a>
+                    <a class="mdl-navigation__link" href="{% url 'reg:login' %}">Login</a>
+                    {% endif %}
+                    {% if request.user.is_authenticated  %}
+                    {% comment %}<a class="mdl-navigation__link" href="{% url 'reg:edit_user' request.user.id|hash_id %}">Edit Profile</a> {% endcomment %}
+                    <a class="mdl-navigation__link" href="{% url 'todo:todo_lists' %}">Todos</a>
+                    <a class="mdl-navigation__link" href="{% url 'tracker:issues' %}">Issues</a>
+                    <a class="mdl-navigation__link" href="{% url 'tracker:notifications' %}">Notifications</a>
+                    {% endif %}
+                    <a class="mdl-navigation__link" href="{% url 'reg:about' %}">Team</a>
+                    {% if request.user.is_authenticated %}
+                    <a class="mdl-navigation__link" href="{% url 'reg:logout' %}">Logout</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+            <div class="mdl-grid portfolio-max-width">
+                {% block errors %}
+                {% endblock %}
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">E-Library</div>
+                </div>
+                <div class="mdl-mini-footer__right-section">
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Privacy & Terms</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="{% static 'material.min.js' %}"></script>
+</body>
+
+</html>

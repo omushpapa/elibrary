@@ -1,0 +1,95 @@
+{% extends 'tracker/tracker_base.html' %}
+
+{% block content %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Search
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <form action="" method="get" class="">
+				{% csrf_token %}
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input type="text" name="q" id="id_q"/>
+					{% if 'type' in request.GET %}
+						<input type="hidden" name="type" value="books"/>
+					{% else %}
+						<input type="hidden" name="doc" value="documents"/>
+					{% endif %}
+				</div>
+				<input type="submit" value="Search"/>
+				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
+			</form>
+        </div>
+        {% if 'doc' in request.GET %}
+        <div class="mdl-card__actions mdl-card--border">
+		    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'tracker:my_documents' %}">
+		    	My uploads
+		    </a><br />
+		    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'tracker:upload_document' %}'>
+		    	Upload document
+		    </a>
+		</div>
+		{% endif %}
+    </div>
+</div>
+
+<hr />
+
+{% if 'q' in request.GET %} 
+	
+	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+	    <div class="mdl-cell mdl-cell--8-col">
+	        <h2 class="mdl-card__title-text">
+	            Search results
+	        </h2>
+	        <div class="mdl-card__supporting-text padding-top">
+	            <span>
+	                Search query: {{ request.GET.q }}
+	            </span>
+	        </div>
+	    </div>
+	</div>
+
+	<br />
+	<br />
+
+	{% for entry in found_entries %}
+
+	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+	    <div class="mdl-cell mdl-cell--8-col">
+	        <h2 class="mdl-card__title-text">
+	            {% if 'type' in request.GET %} 
+	            	{{ entry.book_title | title }} 
+	            {% else %} 
+	            	{{ entry.title | title }} 
+	            {% endif %}
+	        </h2>
+	        <div class="mdl-card__supporting-text padding-top">
+	            <span>
+	            	{% if 'type' in request.GET %} 
+	            		Quantity: {{ entry.quantity | title }} 
+	            	{% else %} 
+	            		&nbsp at <a href='{{ entry.url }}'>here</a>. 
+	            	{% endif %}
+	            </span>
+	        </div>
+	    </div>
+	</div>
+
+	{% empty %}
+
+		<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+		    <div class="mdl-cell mdl-cell--8-col">
+		        <h2 class="mdl-card__title-text">
+		            No results found 
+		        </h2>
+		    </div>
+		</div>
+
+	{% endfor %}
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'reg/base.html' %}
+{% block repo_links %}
+{% if user.is_authenticated %}
+        <li class='mdl-menu__item'>
+            <a href="{% url 'repo:library' %}">Library</a>
+        </li>
+        <li class='mdl-menu__item'>
+	        <a href="{% url 'tracker:documents' %}">Documents</a>
+	    </li>
+{% endif %}
+{% endblock %}

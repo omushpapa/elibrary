@@ -1,0 +1,72 @@
+{% extends 'tracker/tracker_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Issues
+        </h2>
+        
+        {% if request.user.is_staff %}
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'tracker:maintenance' %}">
+                Maintenance
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% for issue in issues %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {{ issue.issue_name | title }} <br />
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                Issue Description: {{ issue.description }} <br />
+				Status: {{ issue.status }} <br />
+            </span>
+        </div>
+        <div class="mdl-card__supporting-text no-left-padding">
+            <p>{% if user_profile.bio %}Bio:<br />&nbsp {{ user_profile.bio }}{% endif %}</p>
+            <span>
+				Time raised: {{ issue.time_raised }} <br />
+				{% if issue.status == 'resolved' %} Time resolved: {{ issue.time_resolved }} <br /> {% endif %}
+				{% if issue.comments %} Admin says: {{ issue.comments }} <br /> {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% empty %}
+
+You have not raised any issues.
+
+{% endfor %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            Raise an issue
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <form action="" method="post" class="">
+				{% csrf_token %}
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					Issue Title: {{ issue_form.issue_name }} <br /><br />
+				</div>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					Short Description: {{ issue_form.description }} <br /><br />
+				</div>
+				<input type='submit' value='Submit' />
+			</form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,166 @@
+{% extends 'reg/base.html' %}
+{% load static %}
+{% load extra_tags %}
+
+{% block content %}
+
+<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+    <div class="mdl-cell mdl-cell--8-col">
+        <h2 class="mdl-card__title-text">
+            {% if request.user.is_authenticated %}
+                <h1>Hello, {{ request.user | title }}</h1>
+            {% else %}
+                <h1>Hello</h1>
+            {% endif %}
+        </h2>
+        <div class="mdl-card__supporting-text padding-top">
+            <span>
+                {% if request.user.is_authenticated %}
+                    <p>You are on your Dashboard</p>
+                {% else %}
+                    <p>Welcome to E-Library</p>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/repo.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Library</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        View all books, borrow an available book and have it reserved for you at the school library ready for pick-up.
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'repo:library' %}">Visit</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/documents.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Documents</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        View all documents, upload and organise your documents, and search for any document.
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'tracker:documents' %}">Visit</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if request.user.is_authenticated %}
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/profile.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Profile</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        Have a profile for yourself and edit it to your liking.
+        <br />
+        <br />
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'reg:profile' request.user.id|hash_id %}">View</a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/todos.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Todos</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        Create a read list (Todos), split into cards and items that can be organised and marked as done.
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'todo:todo_lists' %}">View</a>
+    </div>
+    {% endif %}
+</div>
+
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/issues.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Issues</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        Raise an issue regarding the challenges you are facing while using our system.
+        <br />
+        <br />
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'tracker:issues' %}">Raise</a>
+    </div>
+    {% endif %}
+</div>
+
+{% if request.user.is_staff %}
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/maintenance.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Maintenance</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        Raise a site maintenance issue.
+        <br />
+        <br />
+        <br />
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'tracker:maintenance' %}">Raise</a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+    <div class="mdl-card__media">
+        <img class="article-image" src="{% static 'images/team.png' %}" border="0" alt="" style="background-color: white;">
+    </div>
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Team</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        View the team behind E-Library.
+        <br />
+        <br />
+        <br />
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="{% url 'reg:about' %}">Follow</a>
+    </div>
+    {% endif %}
+</div>
+
+{% block home_content %}
+
+{% endblock %}
+{% endblock %}

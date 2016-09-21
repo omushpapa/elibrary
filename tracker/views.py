@@ -11,8 +11,10 @@ import re
 from django.template import RequestContext
 from hashids import Hashids
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.utils.decorators import method_decorator
 from repo.models import LibraryBook
 
+@method_decorator(login_required, name='dispatch')
 class NotificationListView(ListView):
     model = Notification
     template_name = "tracker/notifications.html"
@@ -45,6 +47,7 @@ def maintenance(request):
         'maintenances': maintenance,
         })
 
+@login_required
 def issue_view(request):
     user_form = IssueForm()
     user_id = request.user.id
@@ -69,15 +72,18 @@ def issue_view(request):
         'issues': issues
         })
 
+@method_decorator(login_required, name='dispatch')
 class CreateDocument(CreateView):
     model = Document
     fields = ('title', 'url', 'document_category',)
     template_name = 'tracker/new_doc.html'
 
+@method_decorator(login_required, name='dispatch')
 class ListDocument(ListView):
 
     model = Document
 
+@method_decorator(login_required, name='dispatch')
 class ListMyDocument(ListView):
 
     model = Document
@@ -87,6 +93,7 @@ class ListMyDocument(ListView):
         queryset = Document.objects.filter(user=self.request.user)
         return queryset
 
+@method_decorator(login_required, name='dispatch')
 class CreateDocument(CreateView):
     model = Document
     template_name = 'tracker/new_instance.html'
@@ -99,6 +106,7 @@ class CreateDocument(CreateView):
         obj.save()
         return super(CreateDocument, self).form_valid(form)
 
+@method_decorator(login_required, name='dispatch')
 class ListDepartmentDocument(ListView):
     model = Document
     template_name = 'tracker/document_list.html'

@@ -119,6 +119,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = 'reg:login'
+
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_USE_TLS =True

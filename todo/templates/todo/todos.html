@@ -15,15 +15,16 @@
 	    <div class="mdl-cell mdl-cell--8-col">
 	        <h2 class="mdl-card__title-text">
 	            {{ todo.todo_name }} &nbsp&nbsp - &nbsp&nbsp
-					<a href='{% url 'todo:update_list' todo.id|hash_id %}'>Update</a>
+					<a href='{% url 'todo:update_list' todo.id|hash_id %}'>update</a>
 	        </h2>
 
 	        {% for card in todo.card.all %}
 
+	        <hr />
 	        <div class="mdl-card__supporting-text padding-top">
 	            <span>
 	                <p>
-					<a href='{% url 'todo:cards' card.id|hash_id %}'>{{ card.card_name }}</a></ br>
+					<a href='{% url 'todo:cards' card.id|hash_id %}'>{{ card.card_name | title }}</a></ br>
 					</p>
 	            </span>
 	        </div>
@@ -32,7 +33,11 @@
 	            <span>
 	            	{% if todo.card.all %}
 					&nbsp&nbsp&nbsp
-					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:new_card' todo.id|hash_id %}'>+</a> card.
+
+					<a href='{% url 'todo:new_card' todo.id|hash_id %}'><i class="material-icons">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+					  +
+					</button></i></a>
 					{% endif %}
 	            </span>
 	        </div>

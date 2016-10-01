@@ -11,7 +11,8 @@ from django.core.validators import RegexValidator
 class Issue(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='issue_user')
 	handler = models.ForeignKey(User, on_delete=models.CASCADE, related_name='issue_handler', 
-		default=User.objects.filter(username='admin')[0].id)
+		default=1)
+	#User.objects.filter(username='admin')[0].id)
 	issue_name = models.CharField(max_length=25, blank=False)
 	description = models.CharField(max_length=100, blank=False)
 	time_raised = models.DateTimeField(default=timezone.now)
@@ -44,7 +45,10 @@ class Notification(models.Model):
 class Maintenance(models.Model):
 	request_name = models.CharField(max_length=25)
 	requested_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='request_user')
-	maintainer = models.ManyToManyField('Maintainer', default=User.objects.filter(username='admin')[0].id, blank=True, related_name='maintainer')
+	maintainer = models.ManyToManyField('Maintainer', 
+		default=1,
+		#User.objects.filter(username='admin')[0].id, 
+		blank=True, related_name='maintainer')
 	description = models.CharField(max_length=200)
 	time_requested = models.DateTimeField(default=timezone.now)
 	APPROVAL_STATUS = (

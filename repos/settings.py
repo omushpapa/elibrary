@@ -117,7 +117,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 LOGIN_URL = 'reg:login'
 
@@ -140,3 +148,8 @@ NORECAPTCHA_SITE_KEY = '6Lf6ricTAAAAAC_fbDp4xAiQm_TwmrxkFdtETr2j'
 NORECAPTCHA_SECRET_KEY = '6Lf6ricTAAAAAN2MsyOvRq_jMCJBeOy-jXpmXIGG'
 
 SESSION_COOKIE_AGE = 604800
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

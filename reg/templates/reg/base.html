@@ -59,6 +59,35 @@
             </div>
         </header>
 
+        <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+            <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                {%if user.is_staff %}
+                <a class="mdl-navigation__link" href="{% url 'admin:index' %}">Admin</a>
+                {% endif %}
+                <a class="mdl-navigation__link" href="{% url 'reg:home' %}">Home</a>
+                <!-- Left aligned menu below button -->
+                {% if request.user.is_authenticated  %}
+                <a class="mdl-navigation__link" href="{% url 'repo:library' %}">Library</a>
+                <a class="mdl-navigation__link" href="{% url 'tracker:documents' %}">Documents</a>
+                <a class="mdl-navigation__link" href="{% url 'reg:profile' request.user.id|hash_id %}">Profile</a>
+                {% endif %}
+                {% if not request.user.is_authenticated %}
+                <a class="mdl-navigation__link" href="{% url 'reg:register' %}">Register</a>
+                <a class="mdl-navigation__link" href="{% url 'reg:login' %}">Login</a>
+                {% endif %}
+                {% if request.user.is_authenticated  %}
+                {% comment %}<a class="mdl-navigation__link" href="{% url 'reg:edit_user' request.user.id|hash_id %}">Edit Profile</a> {% endcomment %}
+                <a class="mdl-navigation__link" href="{% url 'todo:todo_lists' %}">Todos</a>
+                <a class="mdl-navigation__link" href="{% url 'tracker:issues' %}">Issues</a>
+                <a class="mdl-navigation__link" href="{% url 'tracker:notifications' %}">Notifications</a>
+                {% endif %}
+                <a class="mdl-navigation__link" href="{% url 'reg:about' %}">Team</a>
+                {% if request.user.is_authenticated %}
+                <a class="mdl-navigation__link" href="{% url 'reg:logout' %}">Logout</a>
+                {% endif %}
+            </nav>
+        </div>
+
         <main class="mdl-layout__content">
             <div class="mdl-grid portfolio-max-width">
                 {% block errors %}

@@ -17,9 +17,9 @@
                 <input type='hidden' value={{ card.id }} name='card_id'>
                 {% endif %}
 				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
-                    {% if 'update' in request.path %} 'Update' {% endif %}
-                    {% if 'move' in request.path %} 'Move' {% endif %}
-                    {% if 'new' in request.path %} 'Create' {% endif %}
+                    {% if 'update' in request.path %} Update {% endif %}
+                    {% if 'move' in request.path %} Move {% endif %}
+                    {% if 'new' in request.path %} Create {% endif %}
                 </button>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
 			</form>

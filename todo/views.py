@@ -150,7 +150,6 @@ def move_card(request, card_id):
 			todo.card.add(new_card[0])
 
 			return HttpResponseRedirect(reverse('todo:todo_lists'))
-			#form.save()
 		else:
 			HttpResponse('Error!')
 

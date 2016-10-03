@@ -13,6 +13,9 @@
             <form action="" method="post" class="">
 				{% csrf_token %}
 				{{ form.as_p }}
+                {% if 'move' in request.path %} 
+                <input type='hidden' value={{ card.id }} name='card_id'>
+                {% endif %}
 				<input type='submit' value='Create' />
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
 			</form>

@@ -170,4 +170,4 @@ SESSION_COOKIE_AGE = 604800
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
->>>>>>> 815575b6c1388f29002bf7d4543e01ae37e1bff9
+#>>>>>>> 815575b6c1388f29002bf7d4543e01ae37e1bff9

@@ -61,7 +61,7 @@ def login_user(request):
 @login_required(login_url='/login')
 def logout_view(request):
     logout(request)
-    message.success(request, 'You have been logged out!')
+    messages.success(request, 'You have been logged out!')
     return render(request, 'reg/home.html')
 
 @login_required(login_url='/login')

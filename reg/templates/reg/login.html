@@ -11,7 +11,7 @@
                 {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {% for message in messages %}
-                        {{ message }}
+                        <p class="success">{{ message }}</p>
                     {% endfor %}
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

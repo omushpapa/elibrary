@@ -16,7 +16,7 @@
         <div class="mdl-card__supporting-text padding-top">
             <span>
                 {% for message in messages %}
-                    {{ message }}
+                    <p class="success">{{ message }}</p>
                 {% endfor %}
                 {% if request.user.is_authenticated %}
                     <p>You are on your Dashboard</p>

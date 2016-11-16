@@ -32,7 +32,10 @@ def register(request):
             user = form.save()
             user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
             login(request, user)
+            messages.success(request, 'Account created successful')
             return HttpResponseRedirect(reverse('reg:index'))
+        
+        messages.error(request, 'Resistration failed. Check the listed errors')
     else:
         form = MyRegistrationForm()
         

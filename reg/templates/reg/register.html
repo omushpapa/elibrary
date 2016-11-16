@@ -10,6 +10,9 @@
         <div class="mdl-card__supporting-text padding-top">
             <form action="" method="post" class="">
                 {% csrf_token %}
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
                 {{ form.as_p }}
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
                     Register

@@ -35,7 +35,7 @@ def register(request):
             messages.success(request, 'Account created successful')
             return HttpResponseRedirect(reverse('reg:index'))
         
-        messages.error(request, 'Resistration failed. Check the listed errors')
+        messages.error(request, 'Registration failed. Check the listed errors')
     else:
         form = MyRegistrationForm()
         

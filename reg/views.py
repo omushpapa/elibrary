@@ -12,6 +12,7 @@ from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 from django.views import generic
 from hashids import Hashids
+from django.contrib import messages
 # from django.contrib.auth.forms import UserCreationForm
 
 hashids = Hashids(salt='2016-08-18 16:27:22 IiTNmll0 ATn1ViSu', alphabet='123456789abdefghijmdncklopqrstuvwxy0', min_length=7)
@@ -47,7 +48,10 @@ def login_user(request):
             password=request.POST.__getitem__('password'))
         if user is not None:
             login(request, user)
+            messages.success(request, 'Login successful')
             return HttpResponseRedirect(reverse('reg:index'))
+
+        messages.error(request, 'Login failed')
 
     return render(request, 'reg/login.html', {'form': UserForm()})
 

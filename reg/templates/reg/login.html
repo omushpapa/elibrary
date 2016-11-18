@@ -15,10 +15,14 @@
                     {% endfor %}
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    Username: {{ form.username }}<br /><br />
+                    {{ form.username }}
+                    <label class="mdl-textfield__label" for="id_username">Username</label>
+                    <br /><br />
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    		    	Password: {{ form.password }}<br /><br />
+    		    	{{ form.password }}
+                    <label class="mdl-textfield__label" for="id_password">Password</label>
+                    <br /><br />
                 </div>
                 <p>
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Sign in

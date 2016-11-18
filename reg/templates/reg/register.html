@@ -14,11 +14,54 @@
                     <p class="{{ message.tags }}">{{ message }}</p>
                     <br />
                 {% endfor %}
-                {{ form.as_p }}
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.first_name }}
+                    <label class="mdl-textfield__label" for="id_first_name">First Name</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.last_name }}
+                    <label class="mdl-textfield__label" for="id_last_name">Last Name</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.username }}
+                    <label class="mdl-textfield__label" for="id_username">Username</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.email }}
+                    <label class="mdl-textfield__label" for="id_email">Email</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.password1 }}
+                    <label class="mdl-textfield__label" for="id_password1">Password</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.password2 }}
+                    <label class="mdl-textfield__label" for="id_password2">Confirm Password</label>
+                </div>
+                <br />
+                <br />
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.captcha }}
+                    <label class="mdl-textfield__label" for="id_captcha">Captcha</label>
+                </div>
+                <br />
+                <br />
+                <p>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
                     Register
                 </button>
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+                </p>
             </form>
         </div>
         <div class="mdl-card__supporting-text no-left-padding">

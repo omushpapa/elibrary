@@ -4,12 +4,17 @@ from django.contrib.auth.forms import UserCreationForm
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 
 class MyRegistrationForm(UserCreationForm):
-	email = forms.EmailField(max_length=40)
 	captcha = NoReCaptchaField()
 
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name', 'username', 'email')
+		fields = ('first_name', 'last_name', 'username', 'email', 'password')
+		widgets = {
+			'first_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+			'last_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+			'username': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+			'email': forms.TextInput(attrs={'class': 'mdl-textfield__input'})
+		}
 
 	def save(self, commit=True):
 		user = super(MyRegistrationForm, self).save(commit=False)
@@ -22,6 +27,12 @@ class MyRegistrationForm(UserCreationForm):
 			user.save()
 
 		return user
+
+	def __init__(self, *args, **kwargs):
+	    super(MyRegistrationForm, self).__init__(*args, **kwargs)
+
+	    self.fields['password1'].widget.attrs['class'] = 'mdl-textfield__input'
+	    self.fields['password2'].widget.attrs['class'] = 'mdl-textfield__input'
 
 class UserForm(forms.ModelForm):
 	class Meta:

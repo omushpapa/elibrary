@@ -33,6 +33,9 @@ class MyRegistrationForm(UserCreationForm):
 
 	    self.fields['password1'].widget.attrs['class'] = 'mdl-textfield__input'
 	    self.fields['password2'].widget.attrs['class'] = 'mdl-textfield__input'
+	    self.fields['email'].required=True
+	    self.fields['first_name'].required=True
+	    self.fields['last_name'].required=True 
 
 class UserForm(forms.ModelForm):
 	class Meta:

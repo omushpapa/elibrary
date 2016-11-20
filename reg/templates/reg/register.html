@@ -3,10 +3,12 @@
 {% block content%}
 
 <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-    <div class="mdl-cell mdl-cell--8-col">
-        <h2 class="mdl-card__title-text">
-            Create account
-        </h2>
+    <div class="mdl-cell mdl-cell--12-col mdl-card">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">
+                Create account
+            </h2>
+        </div>
         <div class="mdl-card__supporting-text padding-top">
             <form action="" method="post" class="">
                 {% csrf_token %}
@@ -16,43 +18,43 @@
                 {% endfor %}
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.first_name }}
-                    <label class="mdl-textfield__label" for="{{ form.first_name.id_for_label }}">First Name</label>
+                    <label class="mdl-textfield__label" for="{{ form.first_name.id_for_label }}">First Name &nbsp {{ form.first_name.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.last_name }}
-                    <label class="mdl-textfield__label" for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    <label class="mdl-textfield__label" for="{{ form.last_name.id_for_label }}">Last Name &nbsp {{ form.last_name.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.username }}
-                    <label class="mdl-textfield__label" for="{{ form.username.id_for_label }}">Username</label>
+                    <label class="mdl-textfield__label" for="{{ form.username.id_for_label }}">Username &nbsp {{ form.username.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.email }}
-                    <label class="mdl-textfield__label" for="{{ form.email.id_for_label }}">Email</label>
+                    <label class="mdl-textfield__label" for="{{ form.email.id_for_label }}">Email &nbsp {{ form.email.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.password1 }}
-                    <label class="mdl-textfield__label" for="{{ form.password1.id_for_label }}">Password</label>
+                    <label class="mdl-textfield__label" for="{{ form.password1.id_for_label }}">Password &nbsp {{ form.password1.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.password2 }}
-                    <label class="mdl-textfield__label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    <label class="mdl-textfield__label" for="{{ form.password2.id_for_label }}">Confirm Password &nbsp {{ form.password2.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.captcha }}
-                    <label class="mdl-textfield__label" for="{{ form.captcha.id_for_label }}">Captcha</label>
+                    <label class="mdl-textfield__label" for="{{ form.captcha.id_for_label }}">&nbsp Captcha {{ form.captcha.errors.as_text }} *</label>
                 </div>
                 <br />
                 <br />

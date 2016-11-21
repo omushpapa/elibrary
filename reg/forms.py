@@ -8,7 +8,7 @@ class MyRegistrationForm(UserCreationForm):
 
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name', 'username', 'email', 'password')
+		fields = ('first_name', 'last_name', 'username', 'email')
 		widgets = {
 			'first_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
 			'last_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),

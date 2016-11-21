@@ -14,9 +14,10 @@
                 {% csrf_token %}
                 {% for message in messages %}
                     <p class="{{ message.tags }}">{{ message }}</p>
-                    <p class="{{ message.tags }}">{{ form.non_field_errors.as_ul }}</p>
-                    <br />
                 {% endfor %}
+                {% if form.non_field_errors %}
+                    <p class="error">{{ form.non_field_errors.as_text }}</p>
+                {% endif %}
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     {{ form.first_name }}
                     <label class="mdl-textfield__label" for="{{ form.first_name.id_for_label }}">First Name &nbsp {{ form.first_name.errors.as_text }} *</label>

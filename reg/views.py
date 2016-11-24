@@ -13,6 +13,7 @@ from django.core.exceptions import PermissionDenied
 from django.views import generic
 from hashids import Hashids
 from django.contrib import messages
+from django import forms as django_forms
 # from django.contrib.auth.forms import UserCreationForm
 
 hashids = Hashids(salt='2016-08-18 16:27:22 IiTNmll0 ATn1ViSu', alphabet='123456789abdefghijmdncklopqrstuvwxy0', min_length=7)
@@ -76,7 +77,17 @@ def edit_user(request, pk):
     # Prepopulate UserProfileForm with retrieved user values from above.
     user_form = UserEditForm(instance=user)
 
-    ProfileInlineFormset = inlineformset_factory(User, UserProfile, fields=('website', 'bio', 'phone', 'city', 'country', 'organisation'))
+    ProfileInlineFormset = inlineformset_factory(User, UserProfile, 
+        fields=('website', 'bio', 'phone', 'city', 'country', 'organisation'),
+        widgets={
+            'website': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+            'bio': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+            'phone': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+            'city': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+            'country': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+            'organisation': django_forms.TextInput(attrs={'class': 'mdl-textfield__input'})
+        })
+    
     formset = ProfileInlineFormset(instance=user)
 
     if request.user.is_authenticated() and request.user.id == user.id:

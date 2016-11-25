@@ -54,7 +54,9 @@
 	
 	{% if request.path == my_documents %} You have no uploads.
 	{% else %}
-	No documents available.<br />
+    
+        <p class="info">No documents available.</p>
+	
 	{% endif %}
 {% endfor %}
 

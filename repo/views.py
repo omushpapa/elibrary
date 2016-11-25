@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from repo.forms import UserForm
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.contrib import messages
 
 def index(request):
 	return HttpResponse("Welcome to Library")
@@ -23,6 +24,9 @@ def register(request):
 @login_required(login_url='reg:login')
 def library(request):
 	single_books = SingleBook.objects.all()
+
+	if not single_books:
+		messages.info(request, 'No books found')
 	#books = LibraryBook.objects.all()
 	return render(request, 'repo/library.html', {'single_books': single_books})
 	# return HttpResponse("Welcome to library")

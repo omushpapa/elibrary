@@ -6,14 +6,15 @@
 
 <div class="mdl-card__supporting-text no-left-padding">
     <hr />
-    Search
     <form action="{% url 'tracker:search_document' %}" method="get" class="">
         {% csrf_token %}
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input type="text" name="q" id="id_q"/>
+            <input class="mdl-textfield__input" type="text" name="q" id="id_q"/>
             <input type="hidden" name="type" value="books">
+            <label class="mdl-textfield__label" for="id_q">Search</label>
         </div>
-        <input type="submit" value="Search"/>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Search
+                    </button>
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
     </form>
     <hr />
@@ -51,9 +52,9 @@
 
 <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
 	<div class="mdl-card__supporting-text padding-top">
-        <span>
-			No books found
-        </span>
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
     </div>
 </div>
 {% endfor %}

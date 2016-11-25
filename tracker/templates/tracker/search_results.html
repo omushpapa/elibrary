@@ -11,14 +11,16 @@
             <form action="" method="get" class="">
 				{% csrf_token %}
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input type="text" name="q" id="id_q"/>
+					<input class="mdl-textfield__input" type="text" name="q" id="id_q"/>
 					{% if 'type' in request.GET %}
 						<input type="hidden" name="type" value="books"/>
 					{% else %}
 						<input type="hidden" name="doc" value="documents"/>
 					{% endif %}
+					<label class="mdl-textfield__label" for="id_q">Search</label>
 				</div>
-				<input type="submit" value="Search"/>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Search
+                    </button>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
 			</form>
         </div>

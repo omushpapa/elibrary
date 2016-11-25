@@ -15,3 +15,6 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = UserData
         fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'mdl-textfield__input'})
+        }

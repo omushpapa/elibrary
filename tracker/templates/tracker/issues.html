@@ -16,6 +16,10 @@
             </a>
         </div>
         {% endif %}
+        
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
     </div>
 </div>
 
@@ -43,10 +47,6 @@
     </div>
 </div>
 
-{% empty %}
-
-You have not raised any issues.
-
 {% endfor %}
 
 <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
@@ -58,12 +58,17 @@ You have not raised any issues.
             <form action="" method="post" class="">
 				{% csrf_token %}
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					Issue Title: {{ issue_form.issue_name }} <br /><br />
+					{{ issue_form.issue_name }} 
+                    <label class="mdl-textfield__label" for="{{ issue_form.issue_name.id_for_label }}">Issue Subject {{ issue_form.issue_name.errors.as_text }} *</label>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					Short Description: {{ issue_form.description }} <br /><br />
+					{{ issue_form.description }} 
+                    <label class="mdl-textfield__label" for="{{ issue_form.description.id_for_label }}">Short Description {{ issue_form.description.errors.as_text }} *</label>
 				</div>
-				<input type='submit' value='Submit' />
+                <p>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit"> Raise Issue </button>
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+                </p>
 			</form>
         </div>
     </div>

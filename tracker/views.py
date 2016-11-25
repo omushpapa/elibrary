@@ -13,6 +13,7 @@ from hashids import Hashids
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.utils.decorators import method_decorator
 from repo.models import LibraryBook
+from django.contrib import messages
 
 @method_decorator(login_required, name='dispatch')
 class NotificationListView(ListView):
@@ -54,6 +55,7 @@ def issue_view(request):
     if Issue.objects.filter(user=user_id).count() > 0:
         issues = Issue.objects.filter(user=user_id)
     else:
+        messages.info(request, 'You have not raised any issues.')
         issues = None
 
     if request.method == 'POST':
@@ -65,7 +67,11 @@ def issue_view(request):
             #return HttpResponse("Done")
             return HttpResponseRedirect(reverse('tracker:issues'))
         else:
-            return HttpResponse(user_form)
+            messages.error(request, 'Submission failed! Fill in subject and description.')
+            return render(request, 'tracker/issues.html', {
+                'issue_form': IssueForm(),
+                'issues': issues
+                })
 
     return render(request, 'tracker/issues.html', {
         'issue_form': IssueForm(),

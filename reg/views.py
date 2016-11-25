@@ -21,9 +21,6 @@ hashids = Hashids(salt='2016-08-18 16:27:22 IiTNmll0 ATn1ViSu', alphabet='123456
 def home(request):
     return render(request, 'reg/home.html')
 
-def about(request):
-    return render(request, 'reg/about.html')
-
 def register(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('reg:home'))

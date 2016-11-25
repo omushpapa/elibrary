@@ -16,5 +16,4 @@ urlpatterns = [
 		}, name='password_change'),
 	url(r'^(?P<pk>[\w\d]+)/profile/$', views.edit_user, name='edit_user'),
 	url(r'^(?P<pk>[\w\d]+)/viewprofile/$', views.profile, name='profile'),
-	url(r'^about/$', views.about, name="about"),
 ]

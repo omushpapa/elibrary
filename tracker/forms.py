@@ -1,5 +1,5 @@
 from django import forms
-from .models import Issue, Maintenance
+from .models import Issue, Maintenance, Document
 
 class IssueForm(forms.ModelForm):
 
@@ -16,3 +16,13 @@ class MaintenanceForm(forms.ModelForm):
 	class Meta:
 		model = Maintenance
 		fields = ('request_name', 'description',)
+
+class CreateDocumentForm(forms.ModelForm):
+
+	class Meta:
+		model = Document
+		fields = ['title', 'url', 'document_category']
+		widgets = {
+	        'title': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+	        'url': forms.URLInput(attrs={'class': 'mdl-textfield__input'})
+	    }

@@ -12,9 +12,22 @@
         <div class="mdl-card__supporting-text padding-top">
             <form action="" method="post" class="">
 				{% csrf_token %}
-				{{ form.as_p }}
-				<input type='submit' value='Submit' />
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.title }}
+                    <label class="mdl-textfield__label" for="{{ form.title.id_for_label }}">Title &nbsp {{ form.title.errors.as_text }} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.url }}
+                    <label class="mdl-textfield__label" for="{{ form.url.id_for_label }}">Link (url) &nbsp {{ form.url.errors.as_text }} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.document_category }}
+                </div>
+				<p>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Upload
+                    </button>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+                </p>
 			</form>
         </div>
     </div>

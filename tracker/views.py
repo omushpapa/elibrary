@@ -103,8 +103,9 @@ class ListMyDocument(ListView):
 class CreateDocument(CreateView):
     model = Document
     template_name = 'tracker/new_instance.html'
-    fields = ('title', 'url', 'document_category',)
+    # fields = ('title', 'url', 'document_category',)
     success_url = reverse_lazy('tracker:my_documents')
+    form_class = CreateDocumentForm 
 
     def form_valid(self, form):
         obj = form.save(commit=False)

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .forms import CardForm, TodoListForm, MoveCardForm
+from .forms import *
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 from hashids import Hashids
@@ -19,9 +19,10 @@ def todolists(request):
 
 class UpdateTodoList(UpdateView):
 	model = TodoList
-	fields = ('todo_name', 'publicity_status',)
+	#fields = ('todo_name', 'publicity_status',)
 	template_name = 'todo/todolist_new.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = TodoListForm
 
 	def get_object(self, queryset=None):
 		try:
@@ -53,9 +54,10 @@ def cards(request, card_id):
 
 class CreateList(CreateView):
 	model = TodoList
-	fields = ('todo_name', 'publicity_status',)
+	#fields = ('todo_name', 'publicity_status',)
 	template_name = 'todo/new_instance.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = TodoListForm
 
 	def form_valid(self, form):
 		obj = form.save(commit=False)
@@ -64,9 +66,10 @@ class CreateList(CreateView):
 
 class CreateCard(CreateView):
 	model = Card
-	fields = ('card_name', 'description',)
+	#fields = ('card_name', 'description',)
 	template_name = 'todo/new_instance.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = CardForm
 
 	def form_valid(self, form):
 		try:

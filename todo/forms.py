@@ -6,12 +6,19 @@ class CardForm(forms.ModelForm):
 	class Meta:
 		model = Card
 		fields = ('card_name', 'description',)
+		widgets = {
+			'card_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+			'description': forms.Textarea(attrs={'class': 'mdl-textfield__input'})
+		}
 
 class TodoListForm(forms.ModelForm):
 
 	class Meta:
 		model = TodoList
 		fields = ('todo_name', 'publicity_status',)
+		widgets = {
+			'todo_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'})
+		}
 
 class MoveCardForm(forms.ModelForm):
 	

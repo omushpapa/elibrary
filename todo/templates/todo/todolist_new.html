@@ -10,9 +10,26 @@
         <div class="mdl-card__supporting-text padding-top">
             <form action="" method="post" class="">
 				{% csrf_token %}
-				{{ form.as_p }}
-				<input type='submit' value='Create' />
+				{% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <p class="error">{{ form.non_field_errors.as_text }}</p>
+                {% endif %}
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.todo_name }}
+                    <label class="mdl-textfield__label" for="{{ form.todo_name.id_for_label }}">ToDo &nbsp {{ form.first_name.errors.as_text }} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.publicity_status }}
+                    <label class="mdl-textfield__label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.errors.as_text }} *</label>
+                </div>
+				<p>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    {% if 'update' in request.path %} update {% else %} Create {% endif %}
+                </button>
 				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
+                </p>
 			</form>
         </div>
     </div>

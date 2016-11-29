@@ -8,75 +8,108 @@
 	
 	{% if todo.user.id == request.user.id %}
 
-	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-	    <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet" style="background-color: white;">
-	        <img class="article-image" src="{% static 'images/todos.png' %}" border="0" alt="" style="background-color:">
-	    </div>
-	    <div class="mdl-cell mdl-cell--8-col">
-	        <h2 class="mdl-card__title-text">
-	            {{ todo.todo_name }} &nbsp&nbsp - &nbsp&nbsp
-					<a href='{% url 'todo:update_list' todo.id|hash_id %}'>update</a>
+	<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+        <div class="mdl-card__title ">
+            <h2 class="mdl-card__title-text">
+	            {{ todo.todo_name }} 
 	        </h2>
+        </div>
 
-	        {% for card in todo.card.all %}
+        <div class="mdl-card__supporting-text">
 
-	        <hr />
-	        <div class="mdl-card__supporting-text padding-top">
-	            <span>
-	                <p>
-					<a href='{% url 'todo:cards' card.id|hash_id %}'>{{ card.card_name | title }}</a></ br>
-					</p>
-	            </span>
-	        </div>
-	        <div class="mdl-card__supporting-text no-left-padding">
-	            <p>{{ card.description }}</p>
-	            <span>
-	            	{% if todo.card.all %}
-					&nbsp&nbsp&nbsp
+			<ul class="demo-list-item mdl-list">
 
-					<a href='{% url 'todo:new_card' todo.id|hash_id %}'><i class="material-icons">
-					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-					  +
-					</button></i></a>
-					{% endif %}
-	            </span>
-	        </div>
+	        	{% for card in todo.card.all %}
 
-	        {% empty %}
-			No cards in this list.<br />
-			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:new_card' todo.id|hash_id %}'>+</a> card.
-	        {% endfor %}
+				  <li class="mdl-list__item">
+				    <span class="mdl-list__item-primary-content">
+				      <a class="mdl-typography--font-light mdl-typography--text-uppercase" style="text-decoration: none; color: rgb(63,81,181);" href='{% url 'todo:cards' card.id|hash_id %}'>{{ card.card_name | title }}</a></ br>
+				    </span>
+				  </li>
 
-	    </div>
-	</div>
+		        {% empty %}
+
+			        <li class="mdl-list__item">
+					    <span class="mdl-list__item-primary-content">
+						No cards in this list.
+						</span>
+				  	</li>
+
+		        {% endfor %}
+
+		        <li class="mdl-list__item">
+				    <span class="mdl-list__item-primary-content">
+				      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:new_card' todo.id|hash_id %}'>+</a> card.
+				    </span>
+				</li>
+			</ul>
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <span class="mdl-list__item-primary-content">
+            	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:update_list' todo.id|hash_id %}'>update</a>
+            </span>
+        </div>
+
+    </div>
+
 	{% endif %}
 
 {% empty %}
 
-	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-	    <div class="mdl-cell mdl-cell--8-col">
+	<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+	    <div class="mdl-card__title ">
 	        <h2 class="mdl-card__title-text">
 	            You have not created any lists.
 	        </h2>
-	        <div class="mdl-card__actions mdl-card--border">
-	            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'todo:new_list' %}">+</a> list.
-	        </div>
 	    </div>
+
+	    <div class="mdl-card__supporting-text">
+		    <span class="mdl-list__item-primary-content">
+		      Create more ToDo lists and add more reading cards!
+		    </span>
+	    </div>
+
+	    <div class="mdl-card__actions mdl-card--border">
+	        <span class="mdl-list__item-primary-content">
+	        	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'todo:new_list' %}">+</a> list.
+	        </span>
+	    </div>
+
 	</div>
 
 {% endfor %}
 
 {% if todo_lists %}
-<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-	    <div class="mdl-cell mdl-cell--8-col">
+
+<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+	    <div class="mdl-card__title ">
 	        <h2 class="mdl-card__title-text">
 	            Add list.
 	        </h2>
-	        <div class="mdl-card__actions mdl-card--border">
-	            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'todo:new_list' %}">+</a> list.
-	        </div>
 	    </div>
+
+	    <div class="mdl-card__supporting-text">
+		    <span class="mdl-list__item-primary-content">
+		      Create ToDo lists and add more reading cards!
+		    </span>
+	    </div>
+
+	    <br />
+	    <br />
+	    <br />
+	    <br />
+	    <br />
+	    <br />
+
+	    <div class="mdl-card__actions mdl-card--border">
+	        <span class="mdl-list__item-primary-content">
+	        	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'todo:new_list' %}">+</a> list.
+	        </span>
+	    </div>
+
 	</div>
+
 {% endif %}
 
 {% endblock %}

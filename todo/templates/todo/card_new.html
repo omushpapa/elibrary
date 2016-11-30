@@ -4,15 +4,35 @@
 
 <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
     <div class="mdl-cell mdl-cell--8-col">
-        <h2 class="mdl-card__title-text">
-            {% if 'update' in request.path %} Update {% else %} New {% endif %}
-        </h2>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">
+                {% if 'update' in request.path %} Update {% else %} New {% endif %}
+            </h2>
+        </div>
         <div class="mdl-card__supporting-text padding-top">
             <form action="" method="post" class="">
 				{% csrf_token %}
-				{{ form.as_p }}
-				<input type='submit' value='Create' />
-				<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel" class="btn-floating waves-effect waves-light red">Cancel</a>
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <p class="error">{{ form.non_field_errors.as_text }}</p>
+                {% endif %}
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.card_name }}
+                    <label class="mdl-textfield__label" for="{{ form.card_name.id_for_label }}">First Name &nbsp {{ form.first_name.errors.as_text }} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    {{ form.description }}
+                    <label class="mdl-textfield__label" for="{{ form.description.id_for_label }}">Description &nbsp {{ form.first_name.errors.as_text }} *</label>
+                </div>
+				<p>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                    {% if 'update' in request.path %} Update {% else %} Create {% endif %}
+                </button>
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#" onclick="window.history.back(); return false;" title="Cancel">Cancel</a>
+                </p>
 			</form>
         </div>
     </div>

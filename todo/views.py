@@ -84,9 +84,10 @@ class CreateCard(CreateView):
 
 class UpdateCard(UpdateView):
 	model = Card
-	fields = ('card_name', 'description',)
+	#fields = ('card_name', 'description',)
 	template_name = 'todo/card_new.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = CardForm
 
 	def get_object(self, queryset=None):
 		try:
@@ -98,9 +99,9 @@ class UpdateCard(UpdateView):
 
 class CreateTodoItem(CreateView):
 	model = TodoItem
-	fields = ('item_name', 'item_description', 'status', 'is_done',)
 	template_name = 'todo/new_instance.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = TodoItemForm
 
 	def form_valid(self, form):
 		obj = form.save(commit=False)
@@ -118,9 +119,9 @@ class CreateTodoItem(CreateView):
 
 class UpdateTodoItem(UpdateView):
 	model = TodoItem
-	fields = ('item_name', 'item_description', 'status', 'is_done',)
 	template_name = 'todo/todoitem_new.html'
 	success_url = reverse_lazy('todo:todo_lists')
+	form_class = TodoItemForm
 
 	def get_object(self, queryset=None):
 		try:

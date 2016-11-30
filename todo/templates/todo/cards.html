@@ -9,85 +9,191 @@
 	{% if lst.user.id == request.user.id %}
 
 	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-	    <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
-	        <img class="article-image" src="{% static 'images/logo.png' %}" border="0" alt="">
-	    </div>
-	    <div class="mdl-cell mdl-cell--8-col">
-	        <h2 class="mdl-card__title-text">
-	            <a href='{% url 'todo:todo_lists' %}'>{{ lst.todo_name }}</a>
-	        </h2><br />
+	    <div class="mdl-cell mdl-cell--8-col mdl-card">
+	    	<div class="mdl-card__title">
+		        <h2 class="mdl-card__title-text">
+		            <a  style="text-decoration: none; color: rgb(63,81,181);" href='{% url 'todo:todo_lists' %}'>
+		            	{{ lst.todo_name }}
+		            </a>
+		        </h2>
+		    </div>
 
 	        {% for card in cards %}
 
-	        <div class="mdl-card__supporting-text padding-top mdl-card mdl-shadow--4dp">
+	        <div class="mdl-card__supporting-text padding-top mdl-card">
 	            <span>
-	            	<h2 class="mdl-card__title-text">
-					&nbsp{{ card.card_name | title }}</br>
-					</h2>
+	            	<div class="mdl-card__title">
+		            	<h2 class="mdl-card__title-text">
+						&nbsp{{ card.card_name | title }}</br>
+						</h2>
+					</div>
 
-					<p>
-					&nbsp{{ card.description }}</br>
-					&nbsp<a href='{% url 'todo:update_card' card.id|hash_id %}'>Update</a>&nbsp
-					&nbsp<a href='{% url 'todo:move_card' card.id|hash_id %}'>Move</a>
-					</p>
+					<div class="mdl-card__supporting-text padding-top mdl-card">
+
+						<ul class="demo-list-item mdl-list">
+						  <li class="mdl-list__item">
+						    <span class="mdl-list__item-primary-content">
+						      {{ card.description }}
+						    </span>
+						  </li>
+						  <li class="mdl-list__item">
+						    <span class="mdl-list__item-primary-content">
+						      	<button type="button" class="mdl-chip">
+									<a style="text-decoration: none; color: rgb(63,81,181);" href='{% url 'todo:update_card' card.id|hash_id %}'>
+								    	<span class="mdl-chip__text">Update</span>
+								    </a>
+								</button>&nbsp;
+								<button type="button" class="mdl-chip">
+									<a style="text-decoration: none; color: rgb(63,81,181);" href='{% url 'todo:move_card' card.id|hash_id %}'>
+								    	<span class="mdl-chip__text">Move</span>
+								    </a>
+								</button>
+						    </span>
+						  </li>
+						</ul>
+						  
+					</div>
 	            </span>
 	        </div>
-
-		        {% for item in items %}
-		        <br />
-		        <div class="mdl-card__supporting-text mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp portfolio-blog-card-full-bg "><br />
-		            <p>
-		            	{{ item.item_name | title }}<br />
-						{{ item.item_description }}<br />
-						{{ item.status | title }}<br />
-						Done: {% if item.is_done %} Yes {% else %} No {% endif %}<br />
-		            </p>
-		            <span>
-						<a href='{% url 'todo:update_item' item.id|hash_id %}'>Update</a><br />
-						<br />
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href='{% url 'todo:new_item' card.id|hash_id %}'>Add item</a>
-		            </span>
-		        </div>
-		        
-		        {% empty %}
-
-		        	<div class="mdl-card__supporting-text mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp portfolio-blog-card-full-bg "><br />
-			            <p>
-			            	No items found.
-			            </p>
-			            <span>
-							{% if not items %}
-								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href='{% url 'todo:new_item' card.id|hash_id %}'>+ item</a>
-							{% endif %}
-			            </span>
-			        </div>					
-
-				{% endfor %}
-
-			{% empty%}
-
-				<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-				    <div class="mdl-cell mdl-cell--8-col">
-				        <h2 class="mdl-card__title-text">
-				            No cards found.
-				        </h2>
-				    </div>
-				</div>
-
-			{% endfor %}
-			{% endif %}
 
 	    </div>
 	</div>
 
+		        {% for item in items %}
+
+
+		        <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+			        <div class="mdl-card__title ">
+			            <h2 class="mdl-card__title-text">
+				            {{ item.item_name | title }}
+				        </h2>
+			        </div>
+
+			        <div class="mdl-card__supporting-text">
+
+						<ul class="demo-list-item mdl-list">
+
+							  <li class="mdl-list__item">
+							    <span class="mdl-list__item-primary-content">
+							      	{{ item.item_description }}
+							    </span>
+							  </li>
+							  <li class="mdl-list__item">
+							    <span class="mdl-list__item-primary-content">
+							      	{{ item.status | title }}
+							    </span>
+							  </li>
+							  <li class="mdl-list__item">
+							    <span class="mdl-list__item-primary-content">
+							      	Done: {% if item.is_done %} Yes {% else %} No {% endif %}
+							    </span>
+							  </li>
+						</ul>
+			        </div>
+
+			        <div class="mdl-card__actions mdl-card--border">
+			            <span class="mdl-list__item-primary-content">
+			            	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:update_item' item.id|hash_id %}'>update</a>
+			            </span>
+			        </div>
+
+			    </div>
+
+			    {% empty %}
+
+			    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+			        <div class="mdl-card__title ">
+			            <h2 class="mdl-card__title-text">
+				            {{ item.item_name | title }}
+				        </h2>
+			        </div>
+
+			        <div class="mdl-card__supporting-text">
+
+						<ul class="demo-list-item mdl-list">
+
+							  <li class="mdl-list__item">
+							    <span class="mdl-list__item-primary-content">
+							      	No items in this card.
+							    </span>
+							  </li>
+
+					        <li class="mdl-list__item">
+							    <span class="mdl-list__item-primary-content">
+							      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:new_item' card.id|hash_id %}'>+</a> item.
+							    </span>
+							</li>
+						</ul>
+			        </div>
+			    </div>
+
+			    {% endfor %}
+
+			    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-card  mdl-card mdl-shadow--4dp portfolio-blog-card-compact">
+			        <div class="mdl-card__title ">
+			            <h2 class="mdl-card__title-text">
+				            Add item.
+				        </h2>
+			        </div>
+
+			        <div class="mdl-card__supporting-text">
+
+						<span class="mdl-list__item-primary-content">
+					      Create card items!
+					    </span>
+			        </div>
+
+			        <div class="mdl-card__actions mdl-card--border">
+			            <span class="mdl-list__item-primary-content">
+			            	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href='{% url 'todo:new_item' card.id|hash_id %}'>+ item.</a>
+			            </span>
+			        </div>
+
+			    </div>
+
+
+
+			{% empty %}
+
+			<div class="mdl-card__supporting-text padding-top mdl-card">
+	            <span>
+	            	<div class="mdl-card__title">
+		            	<h2 class="mdl-card__title-text">
+						No cards found.
+						</h2>
+					</div>
+
+					<div class="mdl-card__supporting-text">
+					    <span class="mdl-list__item-primary-content">
+					      Create more Cards and add more items!
+					    </span>
+				    </div>
+
+				    <div class="mdl-card__actions mdl-card--border">
+				        <span class="mdl-list__item-primary-content">
+				        	<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'todo:new_list' %}">+</a> list.
+				        </span>
+				    </div>
+				</span>
+			</div>
+		</div>
+	</div>
+
+
+			{% endfor %}
+
+			{% endif %}
+
 {% empty %}
 
-	<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-	    <div class="mdl-cell mdl-cell--8-col">
-	        <h2 class="mdl-card__title-text">
-	            No cards found.
-	        </h2>
-	    </div>
+	<div class="mdl-card__supporting-text padding-top mdl-card">
+        <span>
+        	<div class="mdl-card__title">
+            	<h2 class="mdl-card__title-text">
+				No cards found.
+				</h2>
+			</div>
+		</span>
 	</div>
 
 {% endfor %}

@@ -31,3 +31,13 @@ class MoveCardForm(forms.ModelForm):
 	def __init__(self, user, *args, **kwargs):
 		super(MoveCardForm, self).__init__(*args, **kwargs)
 		self.fields['todo_name'].queryset = TodoList.objects.filter(user=user)	
+
+class TodoItemForm(forms.ModelForm):
+
+	class Meta:
+		model  = TodoItem
+		fields = ('item_name', 'item_description', 'status', 'is_done',)
+		widgets = {
+			'item_name': forms.TextInput(attrs={'class': 'mdl-textfield__input'}),
+			'item_description': forms.Textarea(attrs={'class': 'mdl-textfield__input'})
+		}
